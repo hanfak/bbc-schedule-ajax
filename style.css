@@ -62,6 +62,7 @@ li {
   background-color: #5E5A6B;
   color: #ffffff;;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 #genres li.active {
