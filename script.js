@@ -42,22 +42,31 @@ function getTomorrowsSchedule(genre) {
     }
     }).done(function(data) {
       $(".spinner").remove();
-      if (data.broadcasts.length > 0) {
-        $.each(data.broadcasts, function(index, episode) {
-          var title = "<li><h2>" + episode.programme.display_titles.title + "</h2>";
-          var synopsis = "<h3>" + episode.programme.short_synopsis + "</h3>";
-
-          var detail_html = title;
-          detail_html += synopsis;
-          $("#programmes").append(detail_html);
-
-        });
-      } else {
-        $("#programmes").append("<div class='no-programmes'>No programmes under " + genre + "</div>");
-      }
+      successRetrieve(data);
     }).fail(function() {
       console.log("something went wrong");
   });
+}
+
+function successRetrieve(data) {
+  if (data.broadcasts.length > 0) {
+    $.each(data.broadcasts, function(index, episode) {
+      $("#programmes").append(processEpisode(episode));
+    });
+  } else {
+    $("#programmes").append("<div class='no-programmes'>No programmes under " + genre + "</div>");
+  }
+}
+
+function processEpisode(episode) {
+  item_html = "<li><h2>" + episode.programme.display_titles.title + "</h2>";
+  item_html += "<h3>" + episode.programme.short_synopsis + "</h3>";
+
+  if (episode.programme.image) {
+    item_html += "<img src=http://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
+  }
+
+  return item_html;
 }
 
 
