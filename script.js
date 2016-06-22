@@ -65,6 +65,8 @@ function processEpisode(episode) {
   if (episode.programme.image) {
     item_html += "<img src=http://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
   }
+  
+  item_html += "<p>" + formatDate(episode.start, episode.end)+ "</p>";
 
   return item_html;
 }
