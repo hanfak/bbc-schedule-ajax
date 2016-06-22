@@ -30,7 +30,7 @@ function retrieveGenres(){
     });
     console.log("it received response");
   }).fail(function(){
-    alert( "error" );
+    console.log("it received response");
   }).always(function() {
   });
 }
