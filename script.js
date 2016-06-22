@@ -36,6 +36,9 @@ function getTomorrowsSchedule(genre) {
     type: 'GET',
     url: prefixUrl+genre+suffixUrl,
     dataType: 'json',
+    beforeSend: function() {
+      $("#programmes").empty();
+    }
     }).done(function(data) {
       if (data.broadcasts.length > 0) {
         $.each(data.broadcasts, function(index, episode) {
