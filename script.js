@@ -44,7 +44,13 @@ function getTomorrowsSchedule(genre) {
       $(".spinner").remove();
       if (data.broadcasts.length > 0) {
         $.each(data.broadcasts, function(index, episode) {
-          $("#programmes").append("<li><h2>" + episode.programme.display_titles.title + "</h2>");
+          var title = "<li><h2>" + episode.programme.display_titles.title + "</h2>";
+          var synopsis = "<h3>" + episode.programme.short_synopsis + "</h3>";
+
+          var detail_html = title;
+          detail_html += synopsis;
+          $("#programmes").append(detail_html);
+
         });
       } else {
         $("#programmes").append("<div class='no-programmes'>No programmes under " + genre + "</div>");
