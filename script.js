@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 
 function retrieveGenres(){
-  var url = "http://www.bbc.co.uk/tv/programmes/genres.json";
+  var url = "https://www.bbc.co.uk/tv/programmes/genres.json";
   $.ajax({
     type: 'GET',
     url: url,
@@ -36,7 +36,7 @@ function retrieveGenres(){
 }
 
 function getTomorrowsSchedule(genre) {
-  var prefixUrl = "http://www.bbc.co.uk/tv/programmes/genres/";
+  var prefixUrl = "https://www.bbc.co.uk/tv/programmes/genres/";
   var suffixUrl = "/schedules/tomorrow.json";
   $.ajax({
     type: 'GET',
@@ -71,7 +71,7 @@ function processEpisode(episode) {
   item_html += "<h3>" + episode.programme.short_synopsis + "</h3>";
 
   if (episode.programme.image) {
-    item_html += "<img src=http://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
+    item_html += "<img src=https://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
   }
   if (episode.programme.position) {
     pid = episode.programme.programme.pid;
@@ -85,7 +85,7 @@ function processEpisode(episode) {
 
 
 function getUpcomingEpisodes(pid) {
-  var prefixUrl = "http://www.bbc.co.uk/programmes/";
+  var prefixUrl = "https://www.bbc.co.uk/programmes/";
   var suffixUrl = "/episodes/upcoming.json";
   $.ajax({
     url:  prefixUrl + pid + suffixUrl,
