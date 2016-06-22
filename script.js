@@ -9,6 +9,12 @@ $(document).ready(function(){
     $(this).addClass('active');
     getTomorrowsSchedule(genre);
   });
+
+  $(document).on('click', '.view-more', function(e){
+    pid = $(this).attr('id');
+    getUpcomingEpisodes(pid);
+  });
+
 });
 
 
@@ -59,19 +65,44 @@ function successRetrieve(data) {
 }
 
 function processEpisode(episode) {
-  item_html = "<li><h2>" + episode.programme.display_titles.title + "</h2>";
+  var title = episode.programme.display_titles.title;
+  item_html = "<li><h2>" + title + "</h2>";
+  item_html += "<span class='service'>" + episode.service.title + "</span>";
   item_html += "<h3>" + episode.programme.short_synopsis + "</h3>";
 
   if (episode.programme.image) {
     item_html += "<img src=http://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
   }
-
+  if (episode.programme.position) {
+    pid = episode.programme.programme.pid;
+    item_html += "<a class='view-more' id=" + pid +" href='#'> View all upcoming " + title + "</a>";
+  }
   item_html += "<p>" + formatDate(episode.start, episode.end)+ "</p>";
-  item_html += "<p> <strong>Duration: </strong>" + episode.duration/60 + " minutes</p>";
-  item_html += "<span class='service'>" + episode.service.title + "</span></li>";
+  item_html += "<p> <strong>Duration: </strong>" + episode.duration/60 + " minutes</p></li>";
+
   return item_html;
 }
 
+
+function getUpcomingEpisodes(pid) {
+  var prefixUrl = "http://www.bbc.co.uk/programmes/";
+  var suffixUrl = "/episodes/upcoming.json";
+  $.ajax({
+    url:  prefixUrl + pid + suffixUrl,
+    beforeSend: function() {
+      $("#programmes").empty();
+      $("#programmes").append("<div class='spinner'><img src='spinner.gif' /></div>");
+    }
+  }).done(function(data) {
+    $(".spinner").remove();
+
+    $.each(data.broadcasts, function(index, episode) {
+      $("#programmes").append(processEpisode(episode));
+    });
+  }).fail(function() {
+    console.log("something went wrong");
+  });
+}
 
 function formatDate(start, end) {
 
