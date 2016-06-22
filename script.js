@@ -2,6 +2,11 @@
 
 $(document).ready(function(){
   retrieveGenres();
+
+  $(document).on('click', '#genres li', function(e){
+    genre = $(this).attr('id');
+    getTomorrowsSchedule(genre);
+  });
 });
 
 function retrieveGenres(){
@@ -14,14 +19,32 @@ function retrieveGenres(){
     $.each(data.categories, function(i, val){
       $("#genres").append($("<li>").attr("id", this.key).text(val.title));
     });
-    alert( "success" );
+    console.log("it received response");
   }).fail(function(){
     alert( "error" );
   }).always(function() {
   });
 }
 
-
+function getTomorrowsSchedule(genre) {
+  var prefixUrl = "http://www.bbc.co.uk/tv/programmes/genres/";
+  var suffixUrl = "/schedules/tomorrow.json";
+  $.ajax({
+    type: 'GET',
+    url: prefixUrl+genre+suffixUrl,
+    dataType: 'json',
+    }).done(function(data) {
+      if (data.broadcasts.length > 0) {
+        $.each(data.broadcasts, function(index, episode) {
+          $("#programmes").append("<li><h2>" + episode.programme.display_titles.title + "</h2>");
+        });
+      } else {
+        $("#programmes").append("<div class='no-programmes'>No programmes under " + genre + "</div>");
+      }
+    }).fail(function() {
+      console.log("something went wrong");
+  });
+}
 
 
 function formatDate(start, end) {
