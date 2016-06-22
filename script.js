@@ -38,8 +38,10 @@ function getTomorrowsSchedule(genre) {
     dataType: 'json',
     beforeSend: function() {
       $("#programmes").empty();
+       $("#programmes").append("<div class='spinner'><img src='spinner.gif' /></div>");
     }
     }).done(function(data) {
+      $(".spinner").remove();
       if (data.broadcasts.length > 0) {
         $.each(data.broadcasts, function(index, episode) {
           $("#programmes").append("<li><h2>" + episode.programme.display_titles.title + "</h2>");
