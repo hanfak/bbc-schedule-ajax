@@ -71,7 +71,7 @@ function processEpisode(episode) {
   item_html += "<h3>" + episode.programme.short_synopsis + "</h3>";
 
   if (episode.programme.image) {
-    item_html += "<img src=http://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
+    item_html += "<img src=https://ichef.bbci.co.uk/images/ic/272x153/"+ episode.programme.image.pid +".jpg />";
   }
   if (episode.programme.position) {
     pid = episode.programme.programme.pid;
