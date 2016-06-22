@@ -5,9 +5,12 @@ $(document).ready(function(){
 
   $(document).on('click', '#genres li', function(e){
     genre = $(this).attr('id');
+    $("#genres li").removeClass('active');
+    $(this).addClass('active');
     getTomorrowsSchedule(genre);
   });
 });
+
 
 function retrieveGenres(){
   var url = "http://www.bbc.co.uk/tv/programmes/genres.json";
