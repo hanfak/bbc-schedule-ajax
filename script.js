@@ -67,7 +67,8 @@ function processEpisode(episode) {
   }
 
   item_html += "<p>" + formatDate(episode.start, episode.end)+ "</p>";
-  item_html += "<p> <strong>Duration: </strong>" + episode.duration/60 + " minutes</p>";  
+  item_html += "<p> <strong>Duration: </strong>" + episode.duration/60 + " minutes</p>";
+  item_html += "<span class='service'>" + episode.service.title + "</span></li>";
   return item_html;
 }
 
